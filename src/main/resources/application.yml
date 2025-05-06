@@ -1,0 +1,76 @@
+spring:
+  application:
+    name: CIQDashboard-jirazephyr-collector
+
+
+    logging:
+      level:
+        org:
+          springframework: DEBUG
+
+  datasource:
+    ado:
+      url: http://10.120.101.147:8085/nds/datasource/1528
+
+  data:
+    mongodb:
+      #uri: mongodb://10.120.101.34:27017/neuro_dev
+      spring:
+        data:
+          mongodb:
+            uri: mongodb://localhost:27017/test
+            secondary-uri: mongodb://localhost:27017/adoUrlDetails
+
+      # credents:
+      collection:
+        #        issue: Issues
+        defect: defect
+        userstory: userstory
+        TestCase: data
+  rabbitmq:
+    host: 10.120.100.93
+    port: 5672
+    username: neuro
+    password: ${password}
+
+logging:
+  level:
+    com.cognizant.collector.jira.client.JiraClient: OFF
+
+  pattern:
+    console: '%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger.%M - %msg%n'
+
+scheduler:
+  cron: 0 0/1 * * * *
+  enable: true
+
+zephyrServer:
+  url: https://api.zephyrscale.smartbear.com
+  token: ${token}
+mcp:
+  server:
+    port: 8081  # Different from your main server port
+    repository-path: ./mcp-repos
+
+github:
+  token: ${GITHUB_TOKEN}  # Generate this in GitHub settings
+
+jiraServer:
+  url: https://mukeshkumar766673.atlassian.net/rest/api/latest
+  pushurl: https://mukeshkumar766673.atlassian.net/rest/api/2/issue
+  username: mukeshkumar766673@gmail.com
+  password: ${password}
+  projects: PP
+
+server :
+  port: 8086
+
+jasypt:
+  encryptor:
+    algorithm: PBEWITHHMACSHA512ANDAES_256
+    password: ${password}
+    bean: JasyptEncryptorBean
+
+rbt :
+  python :
+    host : http://10.120.101.34:3136
