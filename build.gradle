@@ -1,0 +1,155 @@
+plugins
+        {
+            id 'org.springframework.boot' version '2.7.16'
+            id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+            id 'java-library' id "org.sonarqube" version "3.3"
+        }
+
+sonarqube {
+    properties
+            {
+                property "sonar.qualitygate.wait", true
+            }
+}
+
+group = 'com.cognizant.collector'
+version = '0.0.1-SNAPSHOT'
+
+java
+        {
+            sourceCompatibility = '11'
+        }
+
+configurations
+        {
+            compileOnly
+                    {
+                        extendsFrom annotationProcessor
+                    }
+        }
+
+repositories
+        {
+            mavenLocal()
+            mavenCentral()
+            flatDir { dirs 'src/lib' }
+        }
+
+ext {
+    set('springCloudVersion', "2021.0.3")
+}
+
+dependencies {
+    implementation 'org.json:json:20210307'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.jsoup:jsoup:1.14.3'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.5'
+    api 'io.github.openfeign:feign-jackson'
+    api 'io.github.openfeign:feign-okhttp'
+    api group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot-starter', version: '3.0.3'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+            {
+                exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+            }
+    testImplementation 'org.springframework.security:spring-security-test'
+    // MCP Server Dependency
+    implementation 'io.modelcontextprotocol:mcp-sdk:0.0.7'
+}
+dependencyManagement
+        {
+            imports {
+                mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+            }
+        }
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+//plugins {
+//	id 'org.springframework.boot' version '2.7.16'
+//	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+//	id 'java-library'
+//	id "org.sonarqube" version "3.3"
+//}
+//
+//
+//
+//sonarqube {
+//	properties {
+//		property "sonar.qualitygate.wait", true
+//		}
+//}
+//group = 'com.cognizant.collector'
+//version = '0.0.1-SNAPSHOT'
+//
+//
+//java {
+//	sourceCompatibility = '11'
+//}
+//
+//configurations {
+//	compileOnly {
+//		extendsFrom annotationProcessor
+//    }
+//}
+//
+//repositories {
+//	mavenLocal()
+//	mavenCentral()
+//
+//	flatDir {
+//		dirs 'src/lib'
+//		}
+//}
+//
+//ext {
+//	set('springCloudVersion', "2021.0.3")
+//}
+//
+//dependencies {
+//	implementation 'org.json:json:20210307'
+//	implementation 'org.springframework.boot:spring-boot-starter-web'
+//	implementation 'org.jsoup:jsoup:1.14.3'
+//	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+//	implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+//	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+//	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.5'
+//	api 'io.github.openfeign:feign-jackson'
+//	api 'io.github.openfeign:feign-okhttp'
+//	api group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot-starter', version: '3.0.3'
+//	compileOnly 'org.projectlombok:lombok'
+//	annotationProcessor 'org.projectlombok:lombok'
+//	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+//	implementation 'com.google.code.gson:gson:2.8.9'
+//	implementation 'org.springframework.boot:spring-boot-starter-amqp'
+//
+//	implementation 'io.modelcontextprotocol:mcp-java-sdk:1.0.0'
+//	implementation 'org.kohsuke:github-api:1.313'
+//	implementation 'org.eclipse.jgit:org.eclipse.jgit:6.5.0.202303070854-r'
+//	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+//		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+//		}
+//
+//	testImplementation 'org.springframework.security:spring-security-test'
+//
+//
+//}
+//
+//
+//tasks.named('test') {
+//	useJUnitPlatform()
+//}
