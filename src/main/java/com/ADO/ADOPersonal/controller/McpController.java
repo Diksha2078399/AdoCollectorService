@@ -1,7 +1,5 @@
 package com.ADO.ADOPersonal.controller;
 
-
-
 import io.modelcontextprotocol.mcp.server.api.McpServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,13 +19,15 @@ public class McpController {
         this.mcpServer = mcpServer;
     }
 
-    @GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/message", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<String> stream() {
         return Flux.create(sink -> {
-            mcpServer.start(context -> {
-                context.getMessages().forEach(sink::next);
-                context.onComplete(sink::complete);
-                context.onError(sink::error);
+            mcpServer.start(exchange -> {
+                exchange.getMessages().subscribe(
+                        sink::next,
+                        sink::error,
+                        sink::complete
+                );
             });
         });
     }

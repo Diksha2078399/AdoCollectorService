@@ -2,7 +2,8 @@ plugins
         {
             id 'org.springframework.boot' version '2.7.16'
             id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-            id 'java-library' id "org.sonarqube" version "3.3"
+            id 'java-library'
+            id "org.sonarqube" version "3.3"
         }
 
 sonarqube {
@@ -60,8 +61,12 @@ dependencies {
                 exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
             }
     testImplementation 'org.springframework.security:spring-security-test'
-    // MCP Server Dependency
-    implementation 'io.modelcontextprotocol:mcp-sdk:0.0.7'
+
+    implementation 'io.modelcontextprotocol.sdk:mcp:0.8.1'
+
+//        implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
+//        implementation 'org.slf4j:slf4j-api:1.7.36'
+
 }
 dependencyManagement
         {
